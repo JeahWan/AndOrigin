@@ -1,0 +1,47 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/main_fragment"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <RadioGroup
+            android:id="@+id/bottom_menu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#fff"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp">
+
+            <RadioButton
+                android:id="@+id/btn_1"
+                style="@style/radio_bottom"
+                android:background="#fff"
+                android:checked="true"
+                android:drawableTop="@drawable/ic_launcher"
+                android:drawablePadding="3dp"
+                android:text="按钮1"
+                android:textColor="#000" />
+
+            <RadioButton
+                android:id="@+id/btn_2"
+                style="@style/radio_bottom"
+                android:background="#fff"
+                android:drawableTop="@drawable/ic_launcher"
+                android:drawablePadding="3dp"
+                android:text="按钮2"
+                android:textColor="#000" />
+
+        </RadioGroup>
+    </LinearLayout>
+</layout>

@@ -1,0 +1,104 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+
+    defaultConfig {
+        applicationId "com.base.and"
+        minSdkVersion 14
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0.0"
+    }
+
+    //签名配置
+    signingConfigs {
+        config {
+            storeFile file("../demo.jks")
+            storePassword ""
+            keyAlias ""
+            keyPassword ""
+        }
+    }
+
+    buildTypes {
+        debug {
+            // 签名
+//            signingConfig signingConfigs.config
+            // 线下地址
+            buildConfigField("String", "HOST", "\"\"")
+        }
+        alpha {
+            // 签名
+            signingConfig signingConfigs.config
+            //可选自定义包名后缀 用于多包共存
+//            applicationIdSuffix '.alpha'
+            // 混淆
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            // ZipAlignEnabled优化
+            zipAlignEnabled true
+            // 移除无用的resource文件
+            shrinkResources true
+            // 线下地址
+            buildConfigField("String", "HOST", "")
+        }
+        release {
+            //继承alpha配置
+            initWith(alpha)
+            //去掉包名后缀
+            applicationIdSuffix ''
+            //关闭debug
+            debuggable false
+            // 线上地址
+            buildConfigField("String", "HOST", "")
+        }
+    }
+
+    //开启dataBinding
+    dataBinding {
+        enabled = true
+    }
+
+    //关闭lint检查
+    lintOptions {
+        disable "ResourceType"
+        abortOnError false
+    }
+
+    //jniLibs目录指向libs目录
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+
+    //自定义输出apk命名规范
+    applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "appName_${variant.buildType.name}.apk"
+        }
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.+'
+    //RxJava RxAndroid
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    //Retrofit2
+    implementation([
+            //okhttp3 logging
+            'com.squareup.okhttp3:logging-interceptor:3.12.0',
+            "com.squareup.retrofit2:retrofit:$retrofit_version",
+            "com.squareup.retrofit2:converter-gson:$retrofit_version",
+            "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+    ])
+    //fastjson
+    implementation 'com.alibaba:fastjson:1.1.70.android'
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    //沉浸式状态栏
+    implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
+}
