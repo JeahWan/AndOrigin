@@ -9,6 +9,7 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0.0"
+        resConfigs "zh"
     }
 
     //签名配置
