@@ -85,18 +85,19 @@ public class BaseHttpMethods {
      * <p>
      * Subscriber真正需要的数据类型，也就是Data部分的数据类型
      */
-    public class HttpResultFunc implements Function<BaseHttpResult, String> {
+    public class HttpResultFunc<T> implements Function<BaseHttpResult, T> {
         @Override
-        public String apply(BaseHttpResult baseHttpResult) throws Exception {
+        public T apply(BaseHttpResult baseHttpResult){
             //TODO 这里可以根据需要增加验签
 //            if (!checkSign(baseHttpResult)) {
 //                return "";
 //            }
             String code = baseHttpResult.code;
             if (!code.equals(Constants.OK)) {
+                //异常处理
                 throw new ResultException(baseHttpResult);
             }
-            return baseHttpResult.data;
+            return (T) baseHttpResult.data;
         }
     }
 }
