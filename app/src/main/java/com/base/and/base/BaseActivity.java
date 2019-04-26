@@ -2,7 +2,6 @@ package com.base.and.base;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -14,8 +13,7 @@ import com.base.and.App;
 import com.base.and.R;
 import com.base.and.ui.home.HomeActivity;
 import com.base.and.utils.PackageUtils;
-import com.base.and.utils.StatusBarUtils;
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+import com.base.and.utils.StatusBarUtil;
 
 /**
  * activity基类
@@ -24,8 +22,6 @@ import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 public abstract class BaseActivity<T> extends AppCompatActivity {
     protected static Context mContext;
-    public SystemBarTintManager tintManager;
-    public SystemBarTintManager.SystemBarConfig config;
     protected T binding;
     private App application;
     private long mExitTime = 0;
@@ -42,8 +38,7 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         application = App.getInstance();
         view = initBinding();
         application.addActivity(this);
-        initTintManager();
-        setPixelInsetTop(false, Color.BLUE);
+        setStatusBar();
         initData();
     }
 
@@ -60,18 +55,20 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     protected abstract void initData();
 
     /**
-     * 初始化沉浸式状态栏相关代码
+     * 沉浸式状态栏设置
      */
-    private void initTintManager() {
-        // 4.4 festuree
-        // create our manager instance after the content view is set
-        tintManager = new SystemBarTintManager(this);
-        // enable status bar tint
-        tintManager.setStatusBarTintEnabled(true);
-        // enable navigation bar tint
-        tintManager.setNavigationBarTintEnabled(true);
-        // set a custom tint color for all system bars
-        config = tintManager.getConfig();
+    public void setStatusBar() {
+        //当FitsSystemWindows设置 true 时，会在屏幕最上方预留出状态栏高度的 padding
+        StatusBarUtil.setRootViewFitsSystemWindows(this, true);
+        //设置状态栏透明
+        StatusBarUtil.setTranslucentStatus(this);
+        //一般的手机的状态栏文字和图标都是白色的, 可如果你的应用也是纯白色的, 或导致状态栏文字看不清
+        //所以如果你是这种情况,请使用以下代码, 设置状态使用深色文字图标风格, 否则你可以选择性注释掉这个if内容
+        if (!StatusBarUtil.setStatusBarDarkTheme(this, true)) {
+            //如果不支持设置深色风格 为了兼容总不能让状态栏白白的看不清, 于是设置一个状态栏颜色为半透明,
+            //这样半透明+白=灰, 状态栏的文字能看得清
+            StatusBarUtil.setStatusBarColor(this, 0x55000000);
+        }
     }
 
     /**
@@ -97,29 +94,6 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
         overridePendingTransition(enterAnim, exitAnim);
         if (isFinish) {
             finish();
-        }
-    }
-
-    /**
-     * 设置statusBar，默认为true，即默认忽略了statusBar的高度。
-     *
-     * @param flag  false不顶上去
-     * @param color 指定statusBar 颜色
-     */
-    public void setPixelInsetTop(boolean flag, int color) {
-        //设置状态栏颜色
-        if (flag) {
-            //顶上去的
-            view.setPadding(0, 0, 0, config.getPixelInsetBottom());
-            tintManager.setTintResource(color);
-        } else {
-            //不顶上去的
-            if (!StatusBarUtils.setStatusBarBlack(getWindow(), true)) {
-                //小米和魅族的设置深色状态栏，不成功就直接设置成黑色状态栏
-                color = Color.BLACK;
-            }
-            view.setPadding(0, config.getPixelInsetTop(false), 0, config.getPixelInsetBottom());
-            tintManager.setTintResource(color);
         }
     }
 

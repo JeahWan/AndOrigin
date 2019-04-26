@@ -32,8 +32,4 @@
         <item name="android:drawablePadding">0dp</item>
         <item name="android:gravity">center_horizontal</item>
     </style>
-
-    <style name="DeviceDefault.NoTitleBar.StutasTrans" parent="@style/AppTheme">
-
-    </style>
 </resources>
