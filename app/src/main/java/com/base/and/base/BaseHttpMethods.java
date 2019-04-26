@@ -5,6 +5,8 @@ import com.base.and.Constants;
 import com.base.and.http.HttpContract;
 import com.base.and.http.ResultException;
 import com.base.and.utils.Tools;
+import com.ihsanbal.logging.Level;
+import com.ihsanbal.logging.LoggingInterceptor;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
@@ -18,7 +20,7 @@ import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
-import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -39,8 +41,13 @@ public class BaseHttpMethods {
         httpClientBuilder.connectTimeout(DEFAULT_TIMEOUT, TimeUnit.SECONDS);
 
         //debug包打印log
-        if (BuildConfig.DEBUG)
-            httpClientBuilder.addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY));
+        httpClientBuilder.addInterceptor(new LoggingInterceptor.Builder()
+                .loggable(BuildConfig.DEBUG)
+                .setLevel(Level.BODY)
+                .log(Platform.INFO)
+                .request("Request")
+                .response("Response")
+                .build());
 
         //设置统一的User-Agent
         httpClientBuilder.interceptors().add(new Interceptor() {
