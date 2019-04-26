@@ -13,10 +13,7 @@ import com.base.and.R;
 import com.base.and.base.BaseActivity;
 import com.base.and.base.BaseFragment;
 import com.base.and.data.HomeTabMessage;
-import com.base.and.data.User;
 import com.base.and.databinding.ActivityHomeBinding;
-import com.base.and.http.HttpMethods;
-import com.base.and.http.subscribers.ProgressSubscriber;
 import com.base.and.ui.FragmentFactory;
 import com.base.and.utils.LogUtil;
 import com.base.and.utils.rxbus.RxBus;
@@ -66,19 +63,6 @@ public class HomeActivity extends BaseActivity<ActivityHomeBinding> {
                     }
                 });
         RxSubscriptions.add(mRxSubSticky);
-    }
-
-    /**
-     * 接口请求示例
-     */
-    public void getTest() {
-        HttpMethods.getInstance()
-                .getUserInfo("typeParams", new ProgressSubscriber<User>(false) {
-                    @Override
-                    public void onNext(User user) {
-                        //TODO 获得数据
-                    }
-                });
     }
 
     /**
