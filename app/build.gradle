@@ -27,11 +27,11 @@ android {
             // 签名
 //            signingConfig signingConfigs.config
             // 线下地址
-            buildConfigField("String", "HOST", "\"\"")
+            buildConfigField("String", "HOST", "\"http://api.douban.com\"")
         }
         alpha {
-            // 签名
-            signingConfig signingConfigs.config
+            //继承alpha配置
+            initWith(debug)
             //可选自定义包名后缀 用于多包共存
 //            applicationIdSuffix '.alpha'
             // 混淆
@@ -41,18 +41,16 @@ android {
             zipAlignEnabled true
             // 移除无用的resource文件
             shrinkResources true
-            // 线下地址
-            buildConfigField("String", "HOST", "")
         }
         release {
             //继承alpha配置
             initWith(alpha)
             //去掉包名后缀
-            applicationIdSuffix ''
+//            applicationIdSuffix ''
             //关闭debug
             debuggable false
             // 线上地址
-            buildConfigField("String", "HOST", "")
+            buildConfigField("String", "HOST", "\"http://api.douban.com\"")
         }
     }
 

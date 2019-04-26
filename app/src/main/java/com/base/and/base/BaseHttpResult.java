@@ -4,7 +4,7 @@ package com.base.and.base;
  * Created by Makise on 2017/2/4.
  */
 
-public class BaseHttpResult {
+public class BaseHttpResult<T> {
     //用来模仿resultCode和resultMessage
     public String sign;
     public String codeDesc;
@@ -12,5 +12,5 @@ public class BaseHttpResult {
     public String code;
 
     //用来模仿Data
-    public String data;
+    public T data;
 }

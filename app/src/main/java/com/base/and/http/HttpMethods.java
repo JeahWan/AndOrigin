@@ -1,14 +1,12 @@
 package com.base.and.http;
 
-import com.alibaba.fastjson.JSON;
 import com.base.and.base.BaseHttpMethods;
-import com.base.and.data.User;
+import com.base.and.data.Movie;
 
-import java.util.HashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.functions.Function;
 
 
 /**
@@ -18,22 +16,32 @@ import io.reactivex.functions.Function;
 
 public class HttpMethods extends BaseHttpMethods implements HttpContract.Methods {
 
+    private ConcurrentHashMap<String, Object> mParams;
+    private static HttpMethods INSTANCE;
+
     //构造方法私有
     private HttpMethods() {
     }
 
     //获取单例
     public static HttpMethods getInstance() {
-        return SingletonHolder.INSTANCE;
+        if (INSTANCE == null) {
+            synchronized (HttpMethods.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = new HttpMethods();
+                }
+            }
+        }
+        return INSTANCE;
     }
 
     //获取签名
-    protected HashMap<String, String> genParams(HashMap<String, String> signParams) {
+    public HttpMethods params(ConcurrentHashMap<String, Object> params) {
         //TODO 这里可以增加一些接口请求的公共参数 签名等等
-//        signParams.clear();
-//        signParams.put("xxxx", xx);
-//        signParams.put("xxxx", xx);
-        return signParams;
+        mParams = params;
+//        mParams.put("xxxx", xx);
+//        mParams.put("xxxx", xx);
+        return this;
     }
 
     /**
@@ -41,26 +49,9 @@ public class HttpMethods extends BaseHttpMethods implements HttpContract.Methods
      */
 
     @Override
-    public void getUserInfo(final String type, Observer subscriber) {
-        HashMap<String, String> params = genParams(new HashMap<String, String>() {
-            {
-                put("type", type);
-            }
-        });
-
-        Observable observable = mService.UserInfo(params, type)
-                .map(new HttpResultFunc())
-                .map(new Function<String, User>() {
-                    @Override
-                    public User apply(String s) {
-                        return JSON.parseObject(s, User.class);
-                    }
-                });
+    public void getTopMovie(Observer subscriber) {
+        Observable observable = mService.topMovie(mParams)
+                .map(new HttpResultFunc<Movie>());
         toSubscribe(observable, subscriber);
-    }
-
-    //在访问HttpMethods时创建单例
-    private static class SingletonHolder {
-        private static final HttpMethods INSTANCE = new HttpMethods();
     }
 }

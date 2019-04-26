@@ -2,15 +2,14 @@ package com.base.and.http;
 
 import com.base.and.Constants;
 import com.base.and.base.BaseHttpResult;
+import com.base.and.data.Movie;
 
 import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import retrofit2.http.Field;
-import retrofit2.http.FieldMap;
-import retrofit2.http.FormUrlEncoded;
-import retrofit2.http.POST;
+import retrofit2.http.GET;
+import retrofit2.http.QueryMap;
 
 /**
  * 网络请求的契约类
@@ -19,15 +18,17 @@ import retrofit2.http.POST;
 
 public interface HttpContract {
     interface Services {
-        @FormUrlEncoded
-        @POST(Constants.TEST_URL)
-        Observable<BaseHttpResult> UserInfo(
-                @FieldMap Map<String, String> param,
-                @Field("type") String type
-        );
+        /**
+         * 获取豆瓣top250电影
+         *
+         * @param param
+         * @return
+         */
+        @GET(Constants.TOP_MOVIE)
+        Observable<BaseHttpResult<Movie>> topMovie(@QueryMap Map<String, Object> param);
     }
 
     interface Methods {
-        void getUserInfo(String type, Observer subscriber);
+        void getTopMovie(Observer subscriber);
     }
 }

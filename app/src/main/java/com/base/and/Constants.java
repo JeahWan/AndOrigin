@@ -11,7 +11,7 @@ public class Constants {
     //接口返回的状态码
     public static final String OK = "OK";
     //测试接口地址
-    public static final String TEST_URL = "/app/xxx";
+    public static final String TOP_MOVIE = "/v2/movie/top250";
     /**
      * SP Key
      */
