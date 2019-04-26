@@ -63,7 +63,7 @@
 
     2、clone本项目框架到本地
 
-        git clone https://github.com/MakiseK/and_base
+        git clone https://github.com/MakiseK/MK-BasicFrame
 
 	3、拷贝所有文件到新项目的目录中，并在根目录Git Bash中依次执行以下命令：
 
