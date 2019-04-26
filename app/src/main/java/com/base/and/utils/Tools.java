@@ -270,7 +270,8 @@ public class Tools {
                 e.printStackTrace();
             }
         } catch (IOException e) {
-            e.printStackTrace();
+//            e.printStackTrace();
+            return "";
         }
         return "";
     }
