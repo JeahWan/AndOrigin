@@ -83,22 +83,22 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.+'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
     //RxJava RxAndroid
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.4'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.0'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     //Retrofit2
     implementation([
             //okhttp3 logging
             'com.squareup.okhttp3:logging-interceptor:3.12.0',
-            "com.squareup.retrofit2:retrofit:$retrofit_version",
-            "com.squareup.retrofit2:converter-gson:$retrofit_version",
-            "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
+            "com.squareup.retrofit2:retrofit:2.5.0",
+            "com.squareup.retrofit2:converter-gson:2.5.0",
+            "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
     ])
     //fastjson
     implementation 'com.alibaba:fastjson:1.1.70.android'
     //Glide
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
     //沉浸式状态栏
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
 }
