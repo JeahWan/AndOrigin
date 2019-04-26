@@ -44,6 +44,11 @@ public class GuideActivity extends BaseActivity<ActivityGuideBinding> {
 //                R.drawable.help_4
 //        };
 
+        if (imageIds == null) {
+            startNewActivity(new Intent(GuideActivity.this, HomeActivity.class), true);
+            return;
+        }
+
         for (int i = 0; i < imageIds.length; i++) {
             View view = View.inflate(this, R.layout.item_guide, null);
             ImageView im = (ImageView) view.findViewById(R.id.image_bg);
