@@ -3,7 +3,6 @@ package com.base.and.ui;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.view.WindowManager;
@@ -14,13 +13,10 @@ import com.base.and.App;
 import com.base.and.Constants;
 import com.base.and.R;
 import com.base.and.base.BaseActivity;
-import com.base.and.data.ImageBean;
 import com.base.and.databinding.ActivityMainBinding;
 import com.base.and.ui.home.HomeActivity;
 import com.base.and.utils.PackageUtils;
 import com.base.and.utils.PreferencesUtils;
-
-import java.util.List;
 
 /**
  * 启动页
@@ -36,7 +32,6 @@ public class SplashActivity extends BaseActivity<ActivityMainBinding> {
     @Override
     protected void initData() {
         //全屏
-        setPixelInsetTop(true, Color.TRANSPARENT);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         // 判断版本升级了,就打开引导页
         if (App.getInstance().isUpgrade()) {
