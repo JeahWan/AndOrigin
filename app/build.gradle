@@ -90,14 +90,14 @@ dependencies {
     implementation([
             //okhttp3 logging
             "com.squareup.retrofit2:retrofit:2.5.0",
-            "com.squareup.retrofit2:converter-gson:2.5.0",
-            "com.squareup.retrofit2:adapter-rxjava2:2.5.0"
+            "com.squareup.retrofit2:adapter-rxjava2:2.5.0",
+            'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
     ])
     implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
         exclude group: 'org.json', module: 'json'
     }
     //fastjson
-    implementation 'com.alibaba:fastjson:1.1.70.android'
+    implementation 'com.alibaba:fastjson:1.1.71.android'
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     //沉浸式状态栏

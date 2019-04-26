@@ -23,7 +23,7 @@ import okhttp3.Response;
 import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.fastjson.FastJsonConverterFactory;
 
 /**
  * 网络请求基类
@@ -63,7 +63,7 @@ public class BaseHttpMethods {
 
         mService = new Retrofit.Builder()
                 .client(httpClientBuilder.build())
-                .addConverterFactory(GsonConverterFactory.create())
+                .addConverterFactory(FastJsonConverterFactory.create())
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .baseUrl(Constants.HOST)
                 .build()
