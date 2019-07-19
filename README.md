@@ -110,3 +110,27 @@
 > 1、App全局响应了摇一摇切换环境
 
 > 2、资源文件使用tinyPng压缩后转webp，保持最佳质量与大小
+
+## 使用
+
+    1、将新项目仓库clone到本地（空仓库）
+
+        git clone https://XXX/XXX.git
+
+    2、clone本项目框架到本地
+
+        git clone https://github.com/JeahWan/MK-BasicFrame
+
+	3、拷贝所有文件到新项目的目录中，并在根目录Git Bash中依次执行以下命令：
+
+	    git add .
+	    git commit -m init
+	    git push
+
+    4、studio中通过git导入项目并更改包名
+
+        studio中project视图右上齿轮中取消勾选Compact Empty Middle Packages;
+
+        选中com下的base包按shift+f6更改新包名，注意选择下边两个选项（重要！）
+
+        检索完成后点击Do Refactor完成包名更改，Sync后即完成导入。
