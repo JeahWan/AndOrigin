@@ -1,58 +1,32 @@
 package com.base.and.base;
 
-import android.content.Context;
 import android.content.Intent;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.Toast;
+import androidx.appcompat.app.AppCompatActivity;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.base.and.App;
-import com.base.and.R;
-import com.base.and.ui.home.HomeActivity;
-import com.base.and.utils.PackageUtils;
+import com.base.and.ui.ContainerActivity;
+import com.base.and.utils.MaterialDialogUtils;
 import com.base.and.utils.StatusBarUtil;
+import com.noober.background.BackgroundLibrary;
 
-/**
- * activity基类
- * Created by Makise on 2017/2/4.
- */
 
-public abstract class BaseActivity<T> extends AppCompatActivity {
-    protected static Context mContext;
-    protected T binding;
-    private App application;
-    private long mExitTime = 0;
-    private View view;
-
-    public static Context getContext() {
-        return mContext;
-    }
+public abstract class BaseActivity<V extends ViewDataBinding> extends AppCompatActivity {
+    protected V binding;
+    private MaterialDialog dialog;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
+        BackgroundLibrary.inject(this);
         super.onCreate(savedInstanceState);
-        mContext = this;
-        application = App.getInstance();
-        view = initBinding();
-        application.addActivity(this);
+        binding = DataBindingUtil.setContentView(this, initContentView(savedInstanceState));
+        App.getInstance().addActivity(this);
         setStatusBar();
         initData();
     }
-
-    /**
-     * 初始化databinding
-     *
-     * @return
-     */
-    protected abstract View initBinding();
-
-    /**
-     * 数据填充
-     */
-    protected abstract void initData();
 
     /**
      * 沉浸式状态栏设置
@@ -72,63 +46,67 @@ public abstract class BaseActivity<T> extends AppCompatActivity {
     }
 
     /**
-     * activity跳转
+     * 跳转容器页面
      *
-     * @param intent
-     * @param isFinish
+     * @param canonicalName 规范名 : Fragment.class.getCanonicalName()
      */
-    public void startNewActivity(Intent intent, boolean isFinish) {
-        startNewActivity(intent, R.anim.push_left_in, R.anim.push_left_out, isFinish);
+    public void startContainerActivity(String canonicalName) {
+        startContainerActivity(canonicalName, null);
     }
 
     /**
-     * activity按照一定的动画效果跳转
+     * 跳转容器页面
      *
-     * @param intent
-     * @param enterAnim
-     * @param exitAnim
-     * @param isFinish
+     * @param canonicalName 规范名 : Fragment.class.getCanonicalName()
+     * @param bundle        跳转所携带的信息
      */
-    public void startNewActivity(Intent intent, int enterAnim, int exitAnim, boolean isFinish) {
+    public void startContainerActivity(String canonicalName, Bundle bundle) {
+        Intent intent = new Intent(this, ContainerActivity.class);
+        intent.putExtra(ContainerActivity.FRAGMENT, canonicalName);
+        if (bundle != null) {
+            intent.putExtra(ContainerActivity.BUNDLE, bundle);
+        }
         startActivity(intent);
-        overridePendingTransition(enterAnim, exitAnim);
-        if (isFinish) {
-            finish();
-        }
     }
 
     /**
-     * 双击返回键退出app
+     * 初始化根布局
      *
-     * @param event
-     * @return
+     * @return 布局layout的id
      */
-    @Override
-    public boolean dispatchKeyEvent(KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
-            if (PackageUtils.isTopActivity(this, HomeActivity.class.getName())) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN && event.getRepeatCount() == 0) {
-                    if ((System.currentTimeMillis() - mExitTime) > 2000) {
-                        Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
-                        mExitTime = System.currentTimeMillis();
-                    } else {
-                        application.exit();
-                    }
-                }
-                return true;
-            }
-            mExitTime = 0;
-            return super.dispatchKeyEvent(event);
+    public abstract int initContentView(Bundle savedInstanceState);
+
+    /**
+     * 初始化内容 获取接口数据等
+     */
+    public abstract void initData();
+
+    /**
+     * 显示加载框
+     *
+     * @param title
+     */
+    public void showDialog(String title) {
+        if (dialog != null) {
+            dialog.show();
+        } else {
+            MaterialDialog.Builder builder = MaterialDialogUtils.showIndeterminateProgressDialog(this, title, true);
+            dialog = builder.show();
         }
-        return super.dispatchKeyEvent(event);
     }
 
     /**
-     * 默认退出动画
+     * 隐藏加载框
      */
+    public void dismissDialog() {
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
+        }
+    }
+
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        overridePendingTransition(R.anim.push_right_in, R.anim.push_right_out);
+    protected void onDestroy() {
+        super.onDestroy();
+        App.getInstance().removeActivity(this);
     }
 }

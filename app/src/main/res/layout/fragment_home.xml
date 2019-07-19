@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <com.noober.background.view.BLTextView
+            android:id="@+id/tv_tab"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="tab页面"
+            android:textSize="18sp"
+            app:bl_stroke_color="#000"
+            app:bl_stroke_width="0.5dp" />
+
+        <com.noober.background.view.BLTextView
+            android:id="@+id/tv_form"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="表单校验"
+            android:textSize="18sp"
+            app:bl_stroke_color="#000"
+            app:bl_stroke_width="0.5dp" />
+
+        <com.noober.background.view.BLTextView
+            android:id="@+id/tv_dialog"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginTop="6dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="自定义弹窗"
+            android:textSize="18sp"
+            app:bl_stroke_color="#000"
+            app:bl_stroke_width="0.5dp" />
+
+        <com.noober.background.view.BLTextView
+            android:id="@+id/tv_crash"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:gravity="center"
+            android:padding="5dp"
+            android:text="模拟崩溃"
+            android:textSize="18sp"
+            app:bl_stroke_color="#000"
+            app:bl_stroke_width="0.5dp" />
+    </LinearLayout>
+</layout>

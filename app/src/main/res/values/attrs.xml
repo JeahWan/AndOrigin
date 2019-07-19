@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="FloatLabeledEditText">
+        <attr name="fletTextAppearance" format="reference" />
+        <attr name="fletPadding" format="reference|dimension" />
+        <attr name="fletPaddingLeft" format="reference|dimension" />
+        <attr name="fletPaddingTop" format="reference|dimension" />
+        <attr name="fletPaddingRight" format="reference|dimension" />
+        <attr name="fletPaddingBottom" format="reference|dimension" />
+        <attr name="fletBackground" format="reference|color" />
+        <attr name="fletTextSize" format="integer" />
+        <attr name="fletTextColor" format="color" />
+        <attr name="fletText" format="string" />
+    </declare-styleable>
+    <declare-styleable name="SegmentControlView">
+        <attr name="scv_BackgroundSelectedColor" format="reference|color" />
+        <attr name="scv_BackgroundNormalColor" format="reference|color" />
+        <attr name="scv_TextSelectedColor" format="reference|color" />
+        <attr name="scv_TextNormalColor" format="reference|color" />
+        <attr name="scv_FrameColor" format="reference|color" />
+        <attr name="scv_FrameWidth" format="reference|dimension" />
+        <attr name="scv_FrameCornerRadius" format="reference|dimension" />
+        <attr name="scv_TextSize" format="reference|dimension" />
+        <attr name="scv_TextArray" format="reference" />
+        <attr name="scv_SelectedIndex" format="reference|integer" />
+        <attr name="scv_SegmentPaddingHorizontal" format="reference|dimension" />
+        <attr name="scv_SegmentPaddingVertical" format="reference|dimension" />
+        <attr name="scv_Gradient" format="reference|boolean" />
+    </declare-styleable>
+    <declare-styleable name="StatusBarHeightView">
+        <attr name="use_type" format="integer">
+            <enum name="use_height" value="0" />
+            <enum name="use_padding_top" value="1" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="MaterialHeader">
+        <attr name="mhPrimaryColor" format="color" />
+        <attr name="mhShadowColor" format="color" />
+        <attr name="mhShadowRadius" format="dimension" />
+        <attr name="mhShowBezierWave" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="CenterEditText">
+        <attr name="isCenter" format="boolean" />
+        <attr name="isShowLeft" format="boolean" />
+        <attr name="isShowHint" format="boolean" />
+        <attr name="drawableIcon" format="reference" />
+        <attr name="isOpen" format="boolean" />
+    </declare-styleable>
+</resources>

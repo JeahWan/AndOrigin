@@ -1,13 +1,9 @@
 # Add project specific ProGuard rules here.
-# By default, the flags in this file are appended to flags specified
-# in F:\Android\sdk/tools/proguard/proguard-android.txt
-# You can edit the include path and order by changing the proguardFiles
-# directive in build.gradle.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
 #
 # For more details, see
 #   http://developer.android.com/guide/developing/tools/proguard.html
-
-# Add any project specific keep options here:
 
 # If your project uses WebView with JS, uncomment the following
 # and specify the fully qualified class name to the JavaScript interface
@@ -15,6 +11,14 @@
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
 #}
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
 
 # 指定代码的压缩级别
 -optimizationpasses 5
@@ -35,51 +39,13 @@
 # 优化
 -optimizations !code/simplification/arithmetic,!field/*,!class/merging/*
 
-#四大组件不建议混淆
--keep class com.google.**
--keep public class * extends android.app.Fragment
--keep public class * extends android.support.v4.app.Fragment
--keep public class * extends android.app.Activity
--keep public class * extends android.app.Application
--keep public class * extends android.app.Service
--keep public class * extends android.content.BroadcastReceiver
--keep public class * extends android.content.ContentProvider
--keep public class * extends android.app.backup.BackupAgentHelper
--keep public class * extends android.preference.Preference
--keep public class com.android.vending.licensing.ILicensingService
-
 # 保留本地native方法不被混淆
 -keepclasseswithmembernames class * {
-    native <methods>;
+    native <methods>;
 }
 
 -keepattributes Signature
 -keepattributes InnerClasses
-
-#######supportv4 混淆start#######
--dontwarn android.support.v4.**
--dontwarn **CompatHoneycomb
--dontwarn **CompatHoneycombMR2
--dontwarn **CompatCreatorHoneycombMR2
--keep interface android.support.v4.app.** { *; }
--keep class android.support.v4.** { *; }
--keep public class * extends android.support.v4.**
--keep public class * extends android.app.Fragment
-#######supportv4 混淆end#######
-
-####### RxJava RxAndroid ######
--dontwarn sun.misc.**
--keepclassmembers class rx.internal.util.unsafe.*ArrayQueue*Field* {
-   long producerIndex;
-   long consumerIndex;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueProducerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode producerNode;
-}
--keepclassmembers class rx.internal.util.unsafe.BaseLinkedQueueConsumerNodeRef {
-    rx.internal.util.atomic.LinkedQueueNode consumerNode;
-}
-####### RxJava RxAndroid ######
 
 #枚举不混淆
 -keepclassmembers enum * {
@@ -96,22 +62,8 @@
 }
 ####### Parcelable ######
 
-###### Glide #######
--keep public class * implements com.bumptech.glide.module.GlideModule
--keep public enum com.bumptech.glide.load.resource.bitmap.ImageHeaderParser$** {
-  **[] $VALUES;
-  public *;
-}
-###### Glide #######
-
-####### Retrofit2 #######
--dontwarn retrofit2.**
--keep class retrofit2.** { *; }
--keepattributes Signature
--keepattributes Exceptions
-####### Retrofit2 #######
-
-####### Databinding #######
--dontwarn android.databinding.**
--keep class android.databinding.** { *; }
-####### Databinding #######
+# bean不混淆
+-keep class base.and.api.BaseData{*;}
+-keep class base.and.data.** {*;}
+# JavaScriptInterface
+-keep public class base.and.JavaScriptInterface{*;}

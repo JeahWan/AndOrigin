@@ -41,7 +41,7 @@ public class WebViewCommonSet {
         mWebSettings.setUseWideViewPort(false);
         mWebSettings.setLoadWithOverviewMode(true);
         mWebSettings.setSupportZoom(true);
-        mWebSettings.setUserAgentString(Tools.getUserAgent(context, "and_base"));
+//        mWebSettings.setUserAgentString(Tools.getUserAgent(context, "and_base"));
 
         // 开启 DOM storage API 功能
         mWebSettings.setDomStorageEnabled(true);
@@ -121,7 +121,7 @@ public class WebViewCommonSet {
             if (file.isFile()) {
                 file.delete();
             } else if (file.isDirectory()) {
-                File files[] = file.listFiles();
+                File[] files = file.listFiles();
                 for (int i = 0; i < files.length; i++) {
                     deleteFile(files[i]);
                 }

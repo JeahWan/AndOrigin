@@ -14,7 +14,6 @@ public class JavaScriptInterface {
     private WebView mwebView;
 
     public JavaScriptInterface(WebView webView, Context context) {
-        super();
         mwebView = webView;
         mContext = context;
     }

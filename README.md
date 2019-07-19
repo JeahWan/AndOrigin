@@ -1,81 +1,112 @@
-#and_base
-    android基础框架，方便新建项目时直接基于此项目使用
+## 包结构：
 
-####目录
+##### *api 包含了封装的网络请求框架，基础bean、接口定义等
 
-    *App
-        app的入口类
+    - converter 自定义实现了fastjson的解析库
 
-    *Constants
-        常量类，用来放至URL等常量信息
 
-    *CrashHandler
-        全局异常捕获类
+##### *base 包含了activity、fragment等的基类
 
-    *JavaScriptInterface
-        js与native交互的接口类
+    - BaseAdapter 通用的adapter 任何地方需要使用直接new一个 调initList、setOnBindViewHolder即可 不用单独创建类；省去了adapter包
 
-    *base
-        包含BaseActivity，BaseFragment，BaseHttpMethods等必要组件的基类
+    - BaseTabFragment、BaseListFragment 分别是tab样式、list样式的页面封装，有新的页面直接继承实现必要的方法即可；减少样板代码
 
-    *http
-        app的网络层，HttpContract定义网络请求的方法实现，ResultException异常返回的统一处理
+    - BaseBindingAdapter 利用DatabindingAdapter实现对原生view的属性扩展，如Glide封装，xml中直接指定必要的属性即可，无需重复编写glide加载相关代码
 
-        使用方法示例（见requestTest方法）：
-        1、HttpContract中分别在Services和Methods接口中增加requestTest方法
-        2、HttpMethods中实现1中新增的方法requestTest
-        3、调用：HttpMethods.getInstance().requestTest(Subscriber,String)
+    - BaseDialog 通用的Dialog封装，使用时直接转入layout，binding即可使用，无需创建各种XXDialog
 
-    *ui
-        具体UI展示层，包括所有需要实现的页面效果
-		**ViewpagerActivity使用：
-			1、Constants中定义一个页面type用来区分页面类型
-			2、在viewpagerAct中switch代码块中添加case，add需要的fragment
-			3、启动该act时指定type
-				putExtra("type",Constants中定义的type)
-		**WebViewPageActivity使用：
-			1、启动页面时，通过intent传入url
-			2、checkParams（）方法检查url中携带的参数信息，控制页面显示
-			3、通过WebViewCommonSet工具类，设置js，以及开启webview的缓存和清除缓存
 
-####打包类型说明
+##### *data JavaBean（部分bean中包含了简单的逻辑方法，方便xml直接调用）
 
-    debug：
+    - CollectionBean 集合类型数据通用bean；避免相同字段或者只有一个字段的情况去创建重复的bean
 
-        开发用（线下）
 
-    alpha：
+##### *ui app所有的页面，以页面层级划分
 
-        测试用（线下）
+    - ContainerActivity fragment的容器activity，非必要的情况（如主页、启动页）下，新页面只需创建fragment然后直接调用此activity即可，无需一个页面一个activity，也避免了庞大的manifest文件
 
-    release：
+    - CrashActivity 测试环境下崩溃时的展示页面 可查看错误log及重启app，生产环境不会展示此页面，只展示toast
 
-        发布用（线上），也可用于测试
 
-    applicationIdSuffix 控制包名后缀，可实现一机安装多版本app;
+##### *utils 各种工具类
 
-    src/alpha(debug、main)/res/values/string.xml 中app_name字段设置不同打包类型下显示的app名称
+    - crash CrashActivity用到的相关代码
 
-####使用
+    - RxTask 使用Rxjava封装的线程工具类，方便在任意位置调用io或ui线程
 
-    1、将新项目仓库clone到本地（空仓库）
+    - WebViewCommonSet WebView常用设置封装
 
-        git clone https://git.oschina.net/XXX/XXX.git
+    - ShareUtils 基于友盟封装的一键分享工具类
 
-    2、clone本项目框架到本地
 
-        git clone https://github.com/MakiseK/MK-BasicFrame
+##### *view 自定义view
 
-	3、拷贝所有文件到新项目的目录中，并在根目录Git Bash中依次执行以下命令：
 
-	    git add .
-	    git commit -m init
-	    git push
+##### *App app入口application
 
-    4、studio中通过git导入项目并更改包名
 
-        studio中project视图右上齿轮中取消勾选Compact Empty Middle Packages;
+##### *Constants 各种常量集合，以内部类形式做分类
 
-        选中com下的base包按shift+f6更改新包名，注意选择下边两个选项（重要！）
 
-        检索完成后点击Do Refactor完成包名更改，Sync后即完成导入。
+##### *CrashHandler 自定义的异常捕获，线上异常时弹toast
+
+
+##### *JavaScriptInterface js交互类
+
+
+
+## 依赖说明：
+
+    *support库 使用androidx
+
+    *fastjson json解析库
+
+    *RxJava RxAndroid 使用在网络请求框架封装、启动页的倒计时、RxTask工具类等
+
+    *Retrofit2 网络请求库
+
+    *LoggingInterceptor 网络请求日志打印
+
+    *umeng四件套 保持最新版本
+
+    *material-dialogs 弹窗库，只能使用到0.9.6.0版本 高版本用kotlin重构了 与项目不兼容
+
+    *pager-bottom-tab-strip 首页底部tabbar
+
+    *systembartint 沉浸式状态栏
+
+    *glide 图片加载
+
+    *MagicIndicator tab样式页面使用
+
+    *background shape selector 替代方案，避免创建大量的shape xml
+
+    *wraplayout 自动换行布局 使用在首页的产品item标签上
+
+    *SmartRefreshLayout 下拉刷新、上拉加载库
+
+    *versionchecklib 版本更新库
+
+    *rxpermissions 运行时权限处理
+
+    *Android-PickerView 地区选择器
+
+
+
+## plugin及task说明：
+
+1、me.isming.fir plugin
+
+> 自动上传至fir的插件
+
+2.、uploadAlphaToFir Task
+
+> 结合了打包与上传两步操作 执行此task可直接打测试包并自动上传至fir
+
+
+
+## 其他说明：
+
+> 1、App全局响应了摇一摇切换环境
+
+> 2、资源文件使用tinyPng压缩后转webp，保持最佳质量与大小

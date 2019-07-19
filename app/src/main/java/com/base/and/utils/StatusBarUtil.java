@@ -7,7 +7,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.IntDef;
+import androidx.annotation.IntDef;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -79,7 +79,7 @@ public class StatusBarUtil {
      */
     public static void setRootViewFitsSystemWindows(Activity activity, boolean fitSystemWindows) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            ViewGroup winContent = (ViewGroup) activity.findViewById(android.R.id.content);
+            ViewGroup winContent = activity.findViewById(android.R.id.content);
             if (winContent.getChildCount() > 0) {
                 ViewGroup rootView = (ViewGroup) winContent.getChildAt(0);
                 if (rootView != null) {

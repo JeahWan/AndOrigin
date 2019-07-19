@@ -1,0 +1,90 @@
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:bl_corners_radius="4dp"
+        app:bl_solid_color="#fff">
+
+        <ImageView
+            android:id="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:padding="12dp"
+            android:src="@drawable/icon_close" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="-12dp"
+            android:layout_marginBottom="13dp"
+            android:text="提示"
+            android:textColor="#303030"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/tv_desc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:lineSpacingMultiplier="1.2"
+            android:text="内容"
+            android:textColor="#666"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/btn_left"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_marginRight="12dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="5dp"
+                android:text="取消"
+                android:textColor="#ff3737"
+                android:textSize="16sp"
+                app:bl_corners_radius="4dp"
+                app:bl_solid_color="#fff"
+                app:bl_stroke_color="#ff3737"
+                app:bl_stroke_width="0.5dp" />
+
+            <TextView
+                android:id="@+id/btn_right"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_gravity="bottom"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingLeft="16dp"
+                android:paddingTop="5dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="5dp"
+                android:text="确定"
+                android:textColor="#fff"
+                android:textSize="16sp"
+                app:bl_corners_radius="4dp"
+                app:bl_solid_color="#f83414" />
+        </LinearLayout>
+    </LinearLayout>
+</layout>

@@ -3,15 +3,22 @@
     package="com.base.and">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name=".App"
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
+        android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
         <activity android:name=".ui.SplashActivity">
@@ -22,20 +29,24 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.home.HomeActivity"
+            android:name=".ui.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.GuideActivity"
+            android:name=".ui.ContainerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.ViewPagerActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:name=".ui.WebViewActivity"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.WebViewPageActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:name=".ui.CrashActivity"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name=".utils.crash.CaocInitProvider"
+            android:authorities="${applicationId}.customactivityoncrashinitprovider"
+            android:exported="false"
+            android:initOrder="101" />
     </application>
 
 </manifest>

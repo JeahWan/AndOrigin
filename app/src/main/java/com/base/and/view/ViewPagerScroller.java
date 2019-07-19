@@ -1,9 +1,10 @@
 package com.base.and.view;
 
 import android.content.Context;
-import android.support.v4.view.ViewPager;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
+
+import androidx.viewpager.widget.ViewPager;
 
 import java.lang.reflect.Field;
 

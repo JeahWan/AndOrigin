@@ -1,8 +1,5 @@
 package com.base.and.data;
 
-/**
- * user bean
- */
 public class User {
-    //user
+    public String token = "";//token 给默认值 避免请求headers中报错
 }

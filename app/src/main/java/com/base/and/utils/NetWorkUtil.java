@@ -9,7 +9,7 @@ import java.net.SocketTimeoutException;
 import java.net.UnknownHostException;
 
 /**
- * @Description: TODO(这里描述这个类的作用)
+ * @Description:
  * @Date 2015年7月9日 下午2:21:06
  */
 public class NetWorkUtil {
@@ -105,9 +105,7 @@ public class NetWorkUtil {
                     .getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo mWiFiNetworkInfo = mConnectivityManager
                     .getNetworkInfo(ConnectivityManager.TYPE_WIFI);
-            if (mWiFiNetworkInfo.isConnected()) {
-                return true;
-            }
+            return mWiFiNetworkInfo.isConnected();
         }
         return false;
     }

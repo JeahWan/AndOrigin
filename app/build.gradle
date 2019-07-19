@@ -2,38 +2,59 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-
     defaultConfig {
         applicationId "com.base.and"
-        minSdkVersion 14
+        minSdkVersion 19
         targetSdkVersion 28
         versionCode 1
         versionName "1.0.0"
         resConfigs "zh"
+        ndk {
+            //根据需要 自行选择添加的对应cpu类型的.so库。
+            abiFilters 'armeabi'
+        }
     }
-
     //签名配置
     signingConfigs {
         config {
-            storeFile file("../demo.jks")
-            storePassword ""
-            keyAlias ""
-            keyPassword ""
+            storeFile file('../xxx.jks')
+            storePassword "xxx"
+            keyAlias "xxx"
+            keyPassword "xxx"
         }
     }
-
+    //开启dataBinding
+    dataBinding {
+        enabled = true
+    }
+    //图片已压缩 指定aapt不做图片压缩 因为可能会反而增加图片大小
+    aaptOptions {
+        cruncherEnabled = false
+    }
+    //关闭lint检查
+    lintOptions {
+        disable "ResourceType"
+        abortOnError false
+    }
+    //jniLibs目录指向libs目录
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+    //优化transformClassDexBuilderForDebug的时间
+    dexOptions {
+        preDexLibraries true
+        maxProcessCount 8
+    }
     buildTypes {
         debug {
             // 签名
 //            signingConfig signingConfigs.config
-            // 线下地址
-            buildConfigField("String", "HOST", "\"http://api.douban.com\"")
         }
         alpha {
-            //继承alpha配置
+            //继承debug配置
             initWith(debug)
-            //可选自定义包名后缀 用于多包共存
-//            applicationIdSuffix '.alpha'
             // 混淆
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -45,61 +66,80 @@ android {
         release {
             //继承alpha配置
             initWith(alpha)
-            //去掉包名后缀
-//            applicationIdSuffix ''
             //关闭debug
             debuggable false
-            // 线上地址
-            buildConfigField("String", "HOST", "\"http://api.douban.com\"")
-        }
-    }
-
-    //开启dataBinding
-    dataBinding {
-        enabled = true
-    }
-
-    //关闭lint检查
-    lintOptions {
-        disable "ResourceType"
-        abortOnError false
-    }
-
-    //jniLibs目录指向libs目录
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-        }
-    }
-
-    //自定义输出apk命名规范
-    applicationVariants.all { variant ->
-        variant.outputs.all {
-            outputFileName = "appName_${variant.buildType.name}.apk"
         }
     }
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
+    //support包统一最新版本
+    implementation([
+            'androidx.appcompat:appcompat:1.0.0',
+            'androidx.recyclerview:recyclerview:1.0.0',
+            'androidx.legacy:legacy-support-v13:1.0.0'
+    ])
+    //fastjson
+    implementation 'com.alibaba:fastjson:1.1.71.android'
     //RxJava RxAndroid
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.8'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     //Retrofit2
     implementation([
-            //okhttp3 logging
-            "com.squareup.retrofit2:retrofit:2.5.0",
-            "com.squareup.retrofit2:adapter-rxjava2:2.5.0",
-            'org.ligboy.retrofit2:converter-fastjson-android:2.1.0'
+            "com.squareup.retrofit2:retrofit:2.6.0",
+            "com.squareup.retrofit2:adapter-rxjava2:2.6.0",
+            'org.ligboy.retrofit2:converter-fastjson-android:2.2.0'
     ])
+    //网络请求日志打印
     implementation('com.github.ihsanbal:LoggingInterceptor:3.0.0') {
         exclude group: 'org.json', module: 'json'
     }
-    //fastjson
-    implementation 'com.alibaba:fastjson:1.1.71.android'
-    //Glide
-    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    //material-dialogs
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    //底部tabBar
+    implementation 'me.majiajie:pager-bottom-tab-strip:2.3.0'
     //沉浸式状态栏
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
+    //Glide
+    implementation 'com.github.bumptech.glide:glide:4.9.0'
+    //Indicator
+    implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
+    //shape selector 替代方案
+    implementation 'com.noober.background:core:1.4.8'
+    //自动换行布局
+    implementation 'am.widget:wraplayout:1.2.1'
+    //下拉刷新库
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-28'
+    //权限申请
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    //选择器
+    implementation 'com.contrarywind:Android-PickerView:4.1.8'
+}
+
+//****fir的gradle上传插件
+apply plugin: 'me.isming.fir'
+fir {
+    appId = "xxx"   //app的appid,在fir中可以找到
+    userToken = "xxx"  //fir用户的token，也在在fir中找到
+}
+apks {
+    alpha {
+        // 要上传的apk的路径,类似下面
+        sourceFile file("build/outputs/apk/alpha/app-alpha.apk")
+        name "测试包" //app的名称
+        version android.defaultConfig.versionName  //app的版本version
+        build android.defaultConfig.versionCode.toString()   //app的版本号
+        icon file("/src/main/res/drawable-xxhdpi/ic_launcher.png")  //app的icon的路径
+        changelog ""  //更新日志
+    }
+}
+//****fir的gradle上传插件
+
+//自动打包上传
+task uploadAlphaToFir {
+    dependsOn 'assembleAlpha'
+    dependsOn 'uploadFir'
+    doLast {
+        println('打包上传成功')
+    }
 }
