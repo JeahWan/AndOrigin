@@ -124,7 +124,9 @@
 3、拷贝所有文件到新项目的目录中，并在根目录Git Bash中依次执行以下命令：
 
 > git add .
+
 > git commit -m init
+
 > git push
 
 4、studio中通过git导入项目并更改包名
