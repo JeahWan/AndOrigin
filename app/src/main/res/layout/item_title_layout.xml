@@ -1,6 +1,41 @@
 <layout>
 
-    <data />
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="backgroundColor"
+            type="Integer" />
+
+        <variable
+            name="leftImage"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="hideLeft"
+            type="boolean" />
+
+        <variable
+            name="title"
+            type="String" />
+
+        <variable
+            name="titleColor"
+            type="Integer" />
+
+        <variable
+            name="rightText"
+            type="String" />
+
+        <variable
+            name="rightImage"
+            type="android.graphics.drawable.Drawable" />
+
+        <variable
+            name="hideDivider"
+            type="boolean" />
+    </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rl_root"
