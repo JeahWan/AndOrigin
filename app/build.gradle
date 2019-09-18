@@ -80,19 +80,19 @@ android {
 dependencies {
     //support包统一最新版本
     implementation([
-            'androidx.appcompat:appcompat:1.0.0',
+            'androidx.appcompat:appcompat:1.1.0',
             'androidx.recyclerview:recyclerview:1.0.0',
             'androidx.legacy:legacy-support-v13:1.0.0'
     ])
     //fastjson
     implementation 'com.alibaba:fastjson:1.1.71.android'
     //RxJava RxAndroid
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.9'
+    implementation 'io.reactivex.rxjava2:rxjava:2.2.12'
     implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
     //Retrofit2
     implementation([
-            "com.squareup.retrofit2:retrofit:2.6.0",
-            "com.squareup.retrofit2:adapter-rxjava2:2.6.0",
+            "com.squareup.retrofit2:retrofit:2.6.1",
+            "com.squareup.retrofit2:adapter-rxjava2:2.6.1",
             'org.ligboy.retrofit2:converter-fastjson-android:2.2.0'
     ])
     //网络请求日志打印
@@ -102,7 +102,7 @@ dependencies {
     //material-dialogs
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     //底部tabBar
-    implementation 'me.majiajie:pager-bottom-tab-strip:2.3.0'
+    implementation 'me.majiajie:pager-bottom-tab-strip:2.3.0X'
     //沉浸式状态栏
     implementation 'com.readystatesoftware.systembartint:systembartint:1.0.4'
     //Glide
@@ -110,11 +110,15 @@ dependencies {
     //Indicator
     implementation 'com.github.hackware1993:MagicIndicator:1.6.0'
     //shape selector 替代方案
-    implementation 'com.noober.background:core:1.4.8'
+    implementation 'com.noober.background:core:1.5.9'
     //自动换行布局
     implementation 'am.widget:wraplayout:1.2.1'
     //下拉刷新库
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-28'
+    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.0-alpha-1'      //核心必须依赖
+    implementation  'com.scwang.smart:refresh-header-material:2.0.0-alpha-1'    //谷歌刷新头
+    implementation  'com.scwang.smart:refresh-footer-classics:2.0.0-alpha-1'    //经典加载
+    //版本更新 github搜:CheckVersionLib
+    implementation 'com.allenliu.versionchecklib:library:2.2.0'
     //权限申请
     implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
     //选择器

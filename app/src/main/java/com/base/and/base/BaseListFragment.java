@@ -15,9 +15,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.base.and.R;
 import com.base.and.api.ResultException;
 import com.base.and.databinding.FragmentRecyclerViewBinding;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.scwang.smart.refresh.layout.api.RefreshLayout;
+import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.List;
