@@ -9,6 +9,10 @@
         android:background="#fcfcfc"
         android:orientation="vertical">
 
+        <include
+            android:id="@+id/title_layout"
+            layout="@layout/item_title_layout"/>
+
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"

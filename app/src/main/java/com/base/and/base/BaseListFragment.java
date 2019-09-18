@@ -1,14 +1,16 @@
 package com.base.and.base;
 
-import androidx.databinding.ViewDataBinding;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.ViewDataBinding;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.base.and.R;
 import com.base.and.api.ResultException;
@@ -59,6 +61,13 @@ public abstract class BaseListFragment<T extends Object, T2 extends ViewDataBind
                 }
             });
         }
+        if (!TextUtils.isEmpty(getTitle())) {
+            binding.titleLayout.rlRoot.setVisibility(View.VISIBLE);
+            binding.titleLayout.setTitle(getTitle());
+        } else {
+            binding.titleLayout.rlRoot.setVisibility(View.GONE);
+        }
+        getData();
     }
 
     /**
@@ -136,4 +145,8 @@ public abstract class BaseListFragment<T extends Object, T2 extends ViewDataBind
     protected abstract String getErrorTips();
 
     protected abstract int getErrorDrawable();
+
+    protected String getTitle() {
+        return "";
+    }
 }
