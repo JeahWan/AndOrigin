@@ -67,6 +67,10 @@ public abstract class BaseListFragment<T extends Object, T2 extends ViewDataBind
         } else {
             binding.titleLayout.rlRoot.setVisibility(View.GONE);
         }
+        //添加headerView
+        if (addHeaderView() != null) {
+            binding.llHeaderView.addView(addHeaderView(), 0);
+        }
         getData();
     }
 
@@ -83,8 +87,8 @@ public abstract class BaseListFragment<T extends Object, T2 extends ViewDataBind
         }
         if (pIndex == 1 && list.size() == 0) {
             //没有数据
-            binding.tvNoData.setText(getErrorTips());
-            Drawable drawable = getResources().getDrawable(getErrorDrawable());
+            binding.tvNoData.setText(!TextUtils.isEmpty(getErrorTips()) ? getErrorTips() : "暂无数据");
+            Drawable drawable = getResources().getDrawable(getErrorDrawable() != 0 ? getErrorDrawable() : R.drawable.ic_launcher);
             drawable.setBounds(0, 0, drawable.getMinimumWidth(), drawable.getMinimumHeight());
             binding.tvNoData.setCompoundDrawables(null, drawable, null, null);
             binding.rlNoData.setVisibility(View.VISIBLE);
@@ -134,6 +138,10 @@ public abstract class BaseListFragment<T extends Object, T2 extends ViewDataBind
      */
     protected boolean enablePaging() {
         return true;
+    }
+
+    protected View addHeaderView() {
+        return null;
     }
 
     protected abstract void getData();

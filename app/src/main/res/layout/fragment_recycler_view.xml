@@ -11,7 +11,7 @@
 
         <include
             android:id="@+id/title_layout"
-            layout="@layout/item_title_layout"/>
+            layout="@layout/item_title_layout" />
 
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
@@ -31,11 +31,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv"
+                <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:overScrollMode="never" />
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/ll_header_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/rl_no_data"
