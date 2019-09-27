@@ -6,12 +6,14 @@ import android.widget.Toast;
 
 import com.base.and.App;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Validate {
     private List<ValidateItem> validateList;
 
     private Validate() {
+        validateList = new ArrayList<>();
     }
 
     public static Validate build() {
