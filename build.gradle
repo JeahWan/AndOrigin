@@ -7,7 +7,7 @@ buildscript {
         maven { url 'https://dl.bintray.com/umsdk/release' }
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.0'
+        classpath 'com.android.tools.build:gradle:3.5.1'
         //fir.im上传插件
         classpath 'com.squareup.okhttp:okhttp:2.7.5'
         classpath 'com.squareup.okhttp:okhttp-urlconnection:2.7.5'

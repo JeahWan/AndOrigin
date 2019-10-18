@@ -3,13 +3,18 @@ package com.base.and.base;
 import android.content.Intent;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
+
+import android.net.Uri;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+
+import android.provider.Settings;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.base.and.R;
@@ -17,6 +22,7 @@ import com.base.and.ui.ContainerActivity;
 import com.base.and.ui.WebViewActivity;
 import com.base.and.utils.MaterialDialogUtils;
 import com.base.and.utils.StatusBarUtil;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 
 public abstract class BaseFragment<V extends ViewDataBinding> extends Fragment {
@@ -174,5 +180,40 @@ public abstract class BaseFragment<V extends ViewDataBinding> extends Fragment {
      */
     public boolean isBackPressed() {
         return false;
+    }
+
+    protected void checkPermission(OnPermissionCallBack onPermissionCallBack, String... permissions) {
+        new RxPermissions(this)
+                .requestEach(permissions)
+                .subscribe(permission -> {
+                    if (permission.granted) {
+                        // 用户已经同意该权限
+                        onPermissionCallBack.onGranted();
+                    } else if (permission.shouldShowRequestPermissionRationale) {
+                        // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                        onPermissionCallBack.onRefuse(false);
+                    } else {
+                        // 用户拒绝了该权限，并且选中『不再询问』
+                        onPermissionCallBack.onRefuse(true);
+                    }
+                });
+    }
+
+    protected abstract class OnPermissionCallBack {
+        public abstract void onGranted();
+
+        void onRefuse(boolean isNeverAskAgain) {
+            if (isNeverAskAgain) {
+                try {
+                    Toast.makeText(getContext(), "请点击权限，并允许全部权限", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    Uri uri = Uri.fromParts("package", getContext().getPackageName(), null);
+                    intent.setData(uri);
+                    startActivity(intent);
+                } catch (Exception ex) {
+                    Toast.makeText(getContext(), "请在应用管理中打开app权限", Toast.LENGTH_SHORT).show();
+                }
+            }
+        }
     }
 }
