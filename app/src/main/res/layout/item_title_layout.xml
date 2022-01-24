@@ -1,4 +1,4 @@
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -16,6 +16,7 @@
             name="hideLeft"
             type="boolean" />
 
+        <!--        xml中设置数据会比代码中设置优先级高 如果有动态标题的需求 xml中不要指定值-->
         <variable
             name="title"
             type="String" />
@@ -35,55 +36,98 @@
         <variable
             name="hideDivider"
             type="boolean" />
+
+        <variable
+            name="hideStatusBarHeightView"
+            type="boolean" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/rl_root"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@color/white"
+        android:layout_height="wrap_content"
+        android:background="@{backgroundColor??0xffffffff}"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/go_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@drawable/arrow_left_black" />
-
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:ellipsize="end"
-            android:maxEms="8"
-            android:singleLine="true"
-            android:textColor="#323232"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/right"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:textColor="#323232"
-            android:textSize="14sp" />
-
-        <ImageView
-            android:id="@+id/iv_right"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp" />
-
-        <View
-            android:id="@+id/title_divider"
+        <com.jeahwan.origin.view.StatusBarHeightView
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:layout_alignParentBottom="true"
-            android:background="#E7E7E7" />
-    </RelativeLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="@{hideStatusBarHeightView?View.GONE:View.VISIBLE}"
+            app:use_type="use_padding_top" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:id="@+id/go_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:src="@{leftImage??@drawable/arrow_left_black}"
+                android:visibility="@{hideLeft?View.GONE:View.VISIBLE}" />
+
+            <ImageView
+                android:id="@+id/webview_close"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/go_back"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
+                android:visibility="gone" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:ellipsize="end"
+                android:includeFontPadding="false"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:maxEms="8"
+                android:singleLine="true"
+                android:text="@{title}"
+                android:textColor="@{titleColor??0xff303030}"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/right"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="15dp"
+                android:gravity="center"
+                android:text="@{rightText}"
+                android:textColor="#ff1001"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/iv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:src="@{rightImage}" />
+
+            <ImageView
+                android:id="@+id/iv_right_h5"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dp"
+                android:layout_centerVertical="true"/>
+
+            <View
+                android:id="@+id/title_divider"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#E7E7E7"
+                android:visibility="@{hideDivider?View.GONE:View.VISIBLE}" />
+        </RelativeLayout>
+    </LinearLayout>
 </layout>

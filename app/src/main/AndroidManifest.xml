@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.base.and">
+    package="com.jeahwan.origin">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -21,7 +21,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.SplashActivity">
+        <activity android:name=".ui.SplashActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -36,17 +37,8 @@
             android:name=".ui.ContainerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.WebViewActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ui.CrashActivity"
             android:screenOrientation="portrait" />
-
-        <provider
-            android:name=".utils.crash.CaocInitProvider"
-            android:authorities="${applicationId}.customactivityoncrashinitprovider"
-            android:exported="false"
-            android:initOrder="101" />
     </application>
 
 </manifest>

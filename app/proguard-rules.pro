@@ -6,7 +6,7 @@
 #   http://developer.android.com/guide/developing/tools/proguard.html
 
 # If your project uses WebView with JS, uncomment the following
-# and specify the fully qualified class name to the JavaScript interface
+# origin specify the fully qualified class name to the JavaScript interface
 # class:
 #-keepclassmembers class fqcn.of.javascript.interface.for.webview {
 #   public *;
@@ -61,9 +61,3 @@
   public static final android.os.Parcelable$Creator *;
 }
 ####### Parcelable ######
-
-# bean不混淆
--keep class base.and.api.BaseData{*;}
--keep class base.and.data.** {*;}
-# JavaScriptInterface
--keep public class base.and.JavaScriptInterface{*;}

@@ -13,4 +13,36 @@
         <item name="colorAccent">@color/colorPrimaryDark</item>
         <!--<item name="android:windowBackground">#ffffff</item>-->
     </style>
+
+    <!--弹窗动画-->
+    <style name="dialogBottomEnter" parent="android:Animation">
+        <!--//进入时的动画-->
+        <item name="android:windowEnterAnimation">@anim/dialog_enter</item>
+        <!--//退出时的动画-->
+        <item name="android:windowExitAnimation">@anim/dialog_exit</item>
+    </style>
+
+    <!--弹窗动画-->
+    <style name="dialogBottomEnterQuick" parent="android:Animation">
+        <!--//进入时的动画-->
+        <item name="android:windowEnterAnimation">@anim/dialog_enter_quick</item>
+        <!--//退出时的动画-->
+        <item name="android:windowExitAnimation">@anim/dialog_exit_quick</item>
+    </style>
+
+    <!--弹窗动画-->
+    <style name="dialogAlphaEnter" parent="android:Animation">
+        <!--//进入时的动画-->
+        <item name="android:windowEnterAnimation">@anim/dialog_alpha_enter</item>
+        <!--//退出时的动画-->
+        <item name="android:windowExitAnimation">@anim/dialog_alpha_exit</item>
+    </style>
+
+    <!--弹窗动画-->
+    <style name="dialogRightEnterQuick" parent="android:Animation">
+        <!--//进入时的动画-->
+        <item name="android:windowEnterAnimation">@anim/dialog_right_in</item>
+        <!--//退出时的动画-->
+        <item name="android:windowExitAnimation">@anim/dialog_right_out</item>
+    </style>
 </resources>

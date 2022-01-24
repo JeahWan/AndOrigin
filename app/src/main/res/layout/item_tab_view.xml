@@ -1,25 +1,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    android:gravity="center"
+    android:clipChildren="false"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/icon"
-        android:layout_width="24dp"
-        android:layout_height="24dp"
-        android:layout_gravity="center_horizontal"
-        android:src="@drawable/ic_launcher" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_weight="1"
+        android:clipChildren="false">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center" />
+
+        <com.noober.background.view.BLView
+            android:id="@+id/view_notice"
+            android:layout_width="8dp"
+            android:layout_height="8dp"
+            android:layout_gravity="end"
+            android:layout_marginTop="3dp"
+            android:layout_marginRight="-3dp"
+            android:visibility="gone"
+            app:bl_corners_radius="4dp"
+            app:bl_solid_color="#ff523c"
+            tools:visibility="visible" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp"
-        android:maxLines="1"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="3dp"
+        android:textColor="#cfcfd0"
         android:textSize="12sp"
         tools:text="123" />
+
 </LinearLayout>
 
 
