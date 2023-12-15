@@ -1,4 +1,4 @@
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout>
 
     <data>
 
@@ -49,12 +49,12 @@
         android:background="@{backgroundColor??0xffffffff}"
         android:orientation="vertical">
 
-        <com.jeahwan.origin.view.StatusBarHeightView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="@{hideStatusBarHeightView?View.GONE:View.VISIBLE}"
-            app:use_type="use_padding_top" />
+        <!--        <com.jeahwan.origin.view.StatusBarHeightView-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="wrap_content"-->
+        <!--            android:orientation="vertical"-->
+        <!--            android:visibility="@{hideStatusBarHeightView?View.GONE:View.VISIBLE}"-->
+        <!--            app:use_type="use_padding_top" />-->
 
         <RelativeLayout
             android:layout_width="match_parent"
